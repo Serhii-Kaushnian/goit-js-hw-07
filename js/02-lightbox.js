@@ -1,4 +1,42 @@
-import { galleryItems } from './gallery-items.js';
+import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
-console.log(galleryItems);
+const ulEl = document.querySelector(".gallery");
+const previewLinks = galleryItems.reduce(
+  (acc, { preview, original, description }) => {
+    return (
+      acc +
+      `
+  <a class="gallery__link" href="${original}">
+    <img
+      class="gallery__image"
+      src="${preview}"
+      data-lightbox="lbox"
+      data-source="${original}"
+      alt="${description}"
+    />
+  </a>
+`
+    );
+  },
+  ""
+);
+ulEl.insertAdjacentHTML("beforeend", previewLinks);
+
+ulEl.addEventListener("click", function (event) {
+  event.preventDefault();
+  if (event.target === event.currentTarget) return;
+  const lightbox = new SimpleLightbox(".gallery a", {
+    captionsData: "alt",
+    captionDelay: 250,
+    captionPosition: "bottom",
+    showCounter: false,
+  });
+  lightbox.on("show.simplelightbox", function () {
+    document.body.style.padding = "42px";
+  });
+  lightbox.on("close.simplelightbox", function () {
+    lightbox.close();
+    lightbox.destroy();
+  });
+});

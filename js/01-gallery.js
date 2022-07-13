@@ -13,14 +13,14 @@ const previewLinks = galleryItems.reduce((acc, { preview, original }) => {
       src="${preview}"
       data-lightbox="lbox"
       data-source="${original}"
-      alt="Image description"
+      alt="${description}"
     />
   </a>
 </div>`
   );
 }, "");
 divEl.insertAdjacentHTML("beforeend", previewLinks);
-let instance2;
+
 divEl.addEventListener("click", function (event) {
   event.preventDefault();
   if (event.target === event.currentTarget) return;
@@ -32,12 +32,13 @@ divEl.addEventListener("click", function (event) {
   instance.src = event.target.dataset.source;
 
   instance.show();
-  // debugger;
 
-  document.addEventListener("keydown", modalCloseOnEscPress);
+  window.addEventListener("keydown", modalCloseOnEscPress);
+
   function modalCloseOnEscPress(event) {
-    if (event.code === "Escape") {
-      instance.close();
-    }
+    if (event.code !== "Escape") return;
+    instance.close();
+
+    window.removeEventListener("keydown", modalCloseOnEscPress);
   }
 });
