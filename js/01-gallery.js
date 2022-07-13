@@ -2,11 +2,12 @@ import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 
 const divEl = document.querySelector(".gallery");
-const { preview, original } = galleryItems;
-const previewLinks = galleryItems.reduce((acc, { preview, original }) => {
-  return (
-    acc +
-    `<div class="gallery__item">
+
+const previewLinks = galleryItems.reduce(
+  (acc, { preview, original, description }) => {
+    return (
+      acc +
+      `<div class="gallery__item">
   <a class="gallery__link" href="${original}">
     <img
       class="gallery__image"
@@ -17,8 +18,10 @@ const previewLinks = galleryItems.reduce((acc, { preview, original }) => {
     />
   </a>
 </div>`
-  );
-}, "");
+    );
+  },
+  ""
+);
 divEl.insertAdjacentHTML("beforeend", previewLinks);
 
 divEl.addEventListener("click", function (event) {
