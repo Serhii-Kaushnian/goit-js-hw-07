@@ -32,11 +32,4 @@ ulEl.addEventListener("click", function (event) {
     captionPosition: "bottom",
     showCounter: false,
   });
-  lightbox.on("show.simplelightbox", function () {
-    document.body.style.padding = "42px";
-  });
-  lightbox.on("close.simplelightbox", function () {
-    lightbox.close();
-    lightbox.destroy();
-  });
 });
