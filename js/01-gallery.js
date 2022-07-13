@@ -33,9 +33,11 @@ divEl.addEventListener("click", function (event) {
 
   instance.show();
   // debugger;
-  window.addEventListener("click", modalClose(instance));
-});
 
-function modalClose(element) {
-  element.close();
-}
+  document.addEventListener("keydown", modalCloseOnEscPress);
+  function modalCloseOnEscPress(event) {
+    if (event.code === "Escape") {
+      instance.close();
+    }
+  }
+});
