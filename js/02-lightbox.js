@@ -23,13 +23,11 @@ const previewLinks = galleryItems.reduce(
 );
 ulEl.insertAdjacentHTML("beforeend", previewLinks);
 
-ulEl.addEventListener("click", function (event) {
-  event.preventDefault();
-  if (event.target === event.currentTarget) return;
-  const lightbox = new SimpleLightbox(".gallery a", {
-    captionsData: "alt",
-    captionDelay: 250,
-    captionPosition: "bottom",
-    showCounter: false,
-  });
+const lightbox = new SimpleLightbox(".gallery a", {
+  captionsData: "alt",
+  captionDelay: 250,
+  captionPosition: "bottom",
+  showCounter: false,
+  nextOnImageClick: true,
+  scrollZoom: false,
 });
