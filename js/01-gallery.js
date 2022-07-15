@@ -45,3 +45,4 @@ divEl.addEventListener("click", function (event) {
     window.removeEventListener("keydown", modalCloseOnEscPress);
   }
 });
+window.removeEventListener("keydown", modalCloseOnEscPress);
