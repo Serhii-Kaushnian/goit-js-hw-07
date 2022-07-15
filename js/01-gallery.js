@@ -26,23 +26,32 @@ divEl.insertAdjacentHTML("beforeend", previewLinks);
 
 divEl.addEventListener("click", function (event) {
   event.preventDefault();
+  divEl.classList.add("listened");
+
   if (event.target === event.currentTarget) return;
   let instance = basicLightbox.create(
     `
     <img src=${event.target.dataset.source} >
-`
+`,
+    {
+      onClose: (instance) => {
+        window.removeEventListener("keydown", modalCloseOnEscPress);
+      },
+    }
   );
   instance.src = event.target.dataset.source;
 
   instance.show();
 
-  window.addEventListener("keydown", modalCloseOnEscPress);
+  window.addEventListener("keydown", modalCloseOnEscPress, { once: true });
 
   function modalCloseOnEscPress(event) {
     if (event.code !== "Escape") return;
+
     instance.close();
 
-    window.removeEventListener("keydown", modalCloseOnEscPress);
+    divEl.classList.remove("listened");
+
+    console.log(divEl.classList.contains("listened"));
   }
 });
-window.removeEventListener("keydown", modalCloseOnEscPress);
